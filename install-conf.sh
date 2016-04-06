@@ -50,13 +50,12 @@ install_file ()
   fi
 }
 
-
-if [ ! -z "$INSTALL_PATH" ]; then
+if [ -z "$INSTALL_PATH" ]; then
   echo "Could not find home folder, is \$HOME variable set?"
   exit 1
 fi
 
-if [ ! -z "$CONF_PATH" ]; then
+if [ -z "$CONF_PATH" ]; then
   echo "I should not be here"
   exit 42
 fi
