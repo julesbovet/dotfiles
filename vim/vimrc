@@ -1,0 +1,171 @@
+" vim600: set foldmethod=marker:
+"
+" {{{	COMPATIBILITY /!\ These settings shouldn't be altered
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use Vim settings, rather then Vi settings
+" This must be first, because it changes other options as a side effect.
+set nocompatible
+if v:progname =~? "evim"
+  finish
+endif
+filetype plugin on
+if has("autocmd")
+  filetype plugin indent on
+  augroup vimrcEx
+    au!
+    autocmd FileType text setlocal textwidth=78
+    autocmd BufReadPost *
+          \ if line("'\"") > 0 && line("'\"") <= line("$") |
+          \   exe "normal g`\"" |
+          \ endif
+  augroup END
+endif
+
+
+"}}}
+" {{{	GENERAL
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+if has("vms")
+  set nobackup	" do not keep a backup file, use versions instead
+else
+  set backup		" keep a backup file
+endif
+
+set showcmd " display incomplete commands
+set showmode " Indicates input or replace mode at bottom
+set scrolloff=16 " n lines for CTRL-d and z
+set wildmode=list:longest
+set viminfo='1000,f1,:500,/500,<50,s10,h
+set listchars+=tab:I.,trail:_
+set nowrap
+set linebreak
+set wildignore=*.o,*.obj,*.bak,*.exe,*~
+set lz			" do not redraw while running macros (much faster) (LazyRedraw)
+set hid			" you can change buffer without saving
+set autoread		" update file without asking
+set textwidth=200	" by default, but see ToogleTextWidth function (fun.vim) for more advanced usage
+set virtualedit=onemore " Allow for cursor beyond last character
+
+
+"}}}
+" {{{	APPEARANCE
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax on
+colorscheme wombat " color file (See ~/.vim/colors/)
+if has("gui_running")
+  " Comment or Uncomment this line according to your terminal configuration
+  " (256 colors or not)
+  " set t_Co=256
+  set guioptions-=m
+  set guioptions-=T
+  set guioptions-=r
+  set guioptions-=L
+endif
+set cursorline
+set hlsearch
+" set guifont=monospace\ 9
+set history=500		" keep 50 lines of command line history
+set ruler		" show the cursor position all the time
+set number
+set fillchars="" " Get rid of separator chars
+set guitablabel=[%n:%t] " Set tab labels
+
+"}}}
+" {{{	ENCODING
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set fileencoding=utf8
+filetype plugin on
+filetype indent on
+set backspace=2
+set encoding=utf8
+
+
+"}}}
+" {{{	INDENTATION
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set expandtab
+set softtabstop=2
+set tabstop=8 "ITS A TRAP! No seriously, don't touch it! Seriously... Seriou...1!!
+set shiftwidth=2
+set smarttab
+set autoindent
+
+
+"}}}
+" {{{	FOLDING
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set foldmethod=marker
+
+
+"}}}
+" {{{	SEARCHING
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set ignorecase
+set smartcase
+set nowrapscan
+set incsearch		" do incremental searching
+
+
+"}}}
+" {{{	STATUS LINE
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Status line
+source ~/.vim/statusline.vim
+set statusline=%r%m%n:%f
+set statusline+=%=
+set statusline+=%#warningmsg#
+set statusline+=%{StatuslineTrailingSpaceWarning()}
+set statusline+=%{StatuslineLongLineWarning()}
+set statusline+=%{StatuslineTabWarning()}
+set statusline+=%*
+set statusline+=\ (%p%%/%LL)\ %l,%c
+
+" Always display statusline
+set laststatus=2
+
+
+"}}}
+" {{{	OTHER
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+source ~/.vim/mappings.vim
+source ~/.vim/langdep.vim
+source ~/.vim/indentation.vim
+source ~/.vim/sudo.vim
+source ~/.vim/tags.vim
+source ~/.vim/trailing.vim
+source ~/.vim/plugins.vim
+
+" Startup initialization
+autocmd VimEnter * wincmd p
+
+set rtp+=~/conf/vim/vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tpope/vim-fugitive'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'scrooloose/syntastic'
+Plugin 'Raimondi/delimitMate'
+Plugin 'mileszs/ack.vim'
+Plugin 'vim-scripts/closetag.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'L9'
+Plugin 'FuzzyFinder'
+Plugin 'bufexplorer.zip'
+Plugin 'altercation/vim-colors-solarized'
+
+call vundle#end()
+filetype plugin indent on
+
+let g:solarized_termcolors=256
+color solarized
+
+"}}}
+
